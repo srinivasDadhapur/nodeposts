@@ -1,0 +1,10 @@
+{
+	
+	"name":"Professor Proton",
+	"email":"proton@gmail.com",
+	"password":"rgukt123",
+	"posts":[
+	{"post":{{"sdf":"sdf"},{"comments":["comment1","comment2"]}}}
+	{"post":{{"sdf":"sdf"},{"comments":["comment1","comment2"]}}},
+	]
+}

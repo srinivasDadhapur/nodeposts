@@ -1,0 +1,25 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+    <div class="jumbotron container">
+      <form (submit)="loginUser()">
+  
+        <table align="center">
+  <tr>
+        <div class="form-group">
+         <input type="text" class="form-control" [(ngModel)]="username" placeholder="Username" name="username">
+        </div>
+      </tr>
+      <tr>
+          <div class="form-group">
+          <input type="password" class="form-control" [(ngModel)]="password" placeholder="Password" name="password">
+        </div>
+      </tr>
+      <tr>
+        <input type="submit" value="login" class='btn btn-primary btn-block'>
+      </tr>
+  
+      </table>
+      </form>
+    </div>
+  </div>
+  
