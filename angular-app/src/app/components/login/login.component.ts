@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service'
 import { Router } from '@angular/router';
+import { PostsService } from '../../services/posts.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   public username: string;
   public password: string;
 
-  constructor(private loginAuth: LoginService, private router: Router) { }
+  constructor(private loginAuth: LoginService, private router: Router, private postService: PostsService) { }
 
   ngOnInit() {
   }
@@ -25,6 +26,9 @@ export class LoginComponent implements OnInit {
     }
     this.loginAuth.authenticateUser(user).subscribe(data => {
       if (data.success) {
+        this.postService.userid = data.email;
+      //  console.log(data);
+        
         this.router.navigate(['posts']);
       }
       else {

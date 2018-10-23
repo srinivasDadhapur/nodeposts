@@ -20,18 +20,23 @@ export class PostsComponent implements OnInit {
     getposts() {
         this.postService.getPosts().subscribe(data => {
             this.users = data;
+            console.log(data);
         });
     }
 
     newpost(newpostval) {
-      console.log(newpostval);
+        console.log(this.postService.userid);
+        
+      this.postService.addPost(newpostval,this.postService.userid).subscribe(data=>{
+          console.log(data);
+      });
     }
 
-    postComment(commentarea,user){
-      console.log(commentarea.value+ ' User is : '+user)
-      this.postService.postComments(commentarea,user).subscribe(data => {
-        console.log(data);
-    });
-    }
+    // postComment(commentarea,user){
+    //   console.log(commentarea.value+ ' User is : '+user)
+    //   this.postService.postComments(commentarea,user).subscribe(data => {
+    //     console.log(data);
+    // });
+    // }
 
 }
