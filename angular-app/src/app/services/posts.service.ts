@@ -9,17 +9,22 @@ import { throwError } from 'rxjs';
 export class PostsService {
 
   constructor(private http: HttpClient) { }
-
+  public userid;
 
   getPosts() {
-    return this.http.get<any>('http://localhost:8080/getposts').pipe(catchError(this.errorHandler));
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    return this.http.post<any>('http://localhost:8080/getposts',{userId:this.userid},{headers:headers}).pipe(catchError(this.errorHandler));
   }
 
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
   }
   postComments(comment, username) {
+    // let headers = new HttpHeaders().set('Content-Type','application/json');
+    // return this.http.put<any>('http://localhost:8080/getposts',{comment:comment,user:username},{headers:headers}).pipe(catchError(this.errorHandler));
+  }
+  addPost(post,username){
     let headers = new HttpHeaders().set('Content-Type','application/json');
-    return this.http.put<any>('http://localhost:8080/getposts',{comment:comment,user:username},{headers:headers}).pipe(catchError(this.errorHandler));
+    return this.http.post<any>('http://localhost:8080/post',{userId:username,post:post},{headers:headers}).pipe(catchError(this.errorHandler));
   }
 }

@@ -23,7 +23,7 @@ mongoose.connection.on('error',()=>{
     
 })
 
-const schema = mongoose.Schema({
+const userSchema = mongoose.Schema({
     name:{
         type:String,
         required: true
@@ -35,20 +35,30 @@ const schema = mongoose.Schema({
     password:{
         type:String,
         required: true
-    },
-    posts:[{}]
+    }
 });
 
 
-const MongoModel = mongoose.model('user',schema);
+const MongoModel = mongoose.model('user',userSchema);
 
 const jwtSchema = mongoose.Schema({
     token:String,
-    user : schema
+    username:String,
+    user : userSchema
 });
 
-
 const jwtModel = mongoose.model('jwttoken',jwtSchema);
+
+const postSchema = mongoose.Schema(
+    {
+        post:String,
+        comments:[{}],
+        userId:String
+    }
+);
+
+const postsModel = mongoose.model('post',postSchema);
+
 
 // const exampleschema = new jwtModel({token:'fsdddfsd',user:{name:'sriniJWTTEst',email:'jwtemail@mail.com',password:'somejwtpass'}});
 // exampleschema.save(()=>{
@@ -79,15 +89,27 @@ app.get('/',(req,res)=>{
     res.send('Hello there');
 });
 
-app.get('/getposts',(req,res)=>{
-    console.log(req.body.email);
-    MongoModel.find({},(err,data)=>{
+app.post('/getposts',(req,res)=>{
+   // console.log(req.body.email);
+    postsModel.find({userId:req.body.userId},(err,data)=>{
         if(data){
-            console.log(data);
+            //console.log(data);
            return res.send(data);
         }
         res.send({error:err})
     })
+});
+
+app.post('/post',(req,res)=>{
+    newPost = new postsModel({post:req.body.post,userId:req.body.userId});
+    newPost.save((err,data)=>{
+        if(err){
+            res.status(403).send({success:false,msg:'cannot post your data'});
+        }
+        else{
+            res.status(200).send({success:true,msg:'posted your data successfully'});
+        }
+    });
 });
 
 app.put('/postcomment',(req,res)=>{
@@ -136,17 +158,30 @@ app.post('/authenticate',(req,res)=>{
             return res.status(403).send({success:false,msg:'invalid user'});
         }
         comparePassword(req.body.password,user.password,(err,ismatch)=>{
+            const username = user.email;
             if(ismatch){
-                const token = jwt.sign({data:user},'my secret key',
-					{
-						expiresIn: 602333
+                jwtModel.findOne({username:username},(err,jwtuser)=>{
+                    if(!jwtuser){
+                        const token = jwt.sign({ data: user }, 'my secret key');
+                        new jwtModel({ token: token, user: user, username:username }).save((err, token) => {
+                            //console.log(token);
 
-                });
-                new jwtModel({token:token,user:user}).save((err,token)=>{
-                        console.log(token);
+                        });
+                        res.send({ success: true, token: token, email: username, msg: 'Logged in' });
                         
+                    }
+                    else{
+                        res.send({ success: true,token: jwtuser.token, email: jwtuser.username, msg: 'Already Logged in' });
+                        
+                    }
                 });
-                res.send({success:true,token:token,email:user.email, msg:'Logged in'});
+                // const token = jwt.sign({data:user},'my secret key');
+                // new jwtModel({token:token,user:user}).save((err,token)=>{
+                //         console.log(token);
+                        
+                // });
+                //res.send({success:true,token:token,email:user.email, msg:'Logged in'});
+                //res.send({msg:"Hi there"});
             }else{
                 res.status(403).send({success:false,msg:'invalid password'});
             }

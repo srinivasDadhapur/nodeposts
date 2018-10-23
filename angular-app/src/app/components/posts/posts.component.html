@@ -13,17 +13,21 @@
         </form>
       </div>
       <div>
-        posts go here
-        <div *ngFor="let user of users">
-          <ng-container *ngIf="user.posts.length">
-          <h1>{{user.name}}'s Posts</h1>
+       My posts go here
+        <!-- <div *ngFor="let post of users">{{post.post}}
+          <div *ngFor="let comment of post.comments">{{comment}}</div>
 
-          <div *ngFor="let post of user.posts">
-            <p class="lead">{{post.post}}</p>
-            <div *ngFor="let comment of post.comments">
+        </div> -->
+        <div *ngFor="let user of users">
+          <ng-container *ngIf="user.comments.length">
+          <!-- <h1>{{user.name}}'s Posts</h1> -->
+
+          <div>
+            <p class="lead">{{user.post}}</p>
+            <div *ngFor="let comment of user.comments">
               <div>
-                <p>{{comment.comment}}</p>
-                <p>by: {{comment.user}}</p>
+                <p>{{comment}}</p>
+                <p>by: {{user.userId}}</p>
               </div>
             </div>
             <textarea #comment class="form-control" rows="1"></textarea>
