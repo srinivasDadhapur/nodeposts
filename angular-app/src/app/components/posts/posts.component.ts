@@ -25,11 +25,12 @@ export class PostsComponent implements OnInit {
     }
 
     newpost(newpostval) {
-        console.log(this.postService.userid);
-        
-      this.postService.addPost(newpostval,this.postService.userid).subscribe(data=>{
-          console.log(data);
-      });
+
+        if (newpostval != '') {
+            this.postService.addPost(newpostval, this.postService.userid).subscribe(data => {
+                console.log(data);
+            });
+        }
     }
 
     // postComment(commentarea,user){

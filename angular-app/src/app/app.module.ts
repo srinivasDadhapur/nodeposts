@@ -12,6 +12,8 @@ import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { PostsComponent } from './components/posts/posts.component';
+import { PostsService } from './services/posts.service';
+import { FriendsComponent } from './components/friends/friends.component';
 
 
 const appRoutes: Routes = [
@@ -19,7 +21,8 @@ const appRoutes: Routes = [
   {path: 'home', component: HomeComponent},
   { path: 'login', component: LoginComponent },
   { path: 'profile',component: ProfileComponent },
-  {path:'posts',component:PostsComponent}
+  {path:'posts',component:PostsComponent},
+  {path:'friends',component:FriendsComponent}
 ];
 
 
@@ -30,7 +33,8 @@ const appRoutes: Routes = [
     LoginComponent,
     NavbarComponent,
     HomeComponent,
-    PostsComponent
+    PostsComponent,
+    FriendsComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -38,7 +42,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule
   ],
-  providers: [LoginService],
+  providers: [LoginService,PostsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

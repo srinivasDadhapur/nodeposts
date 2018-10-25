@@ -6,14 +6,19 @@ import { throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class PostsService {
+export class FeedService {
 
   constructor(private http: HttpClient) { }
   public userid =  localStorage.getItem('userName');
 
   getPosts() {
     let headers = new HttpHeaders().set('Content-Type','application/json');
-    return this.http.post<any>('http://localhost:8080/getposts',{userId:this.userid},{headers:headers}).pipe(catchError(this.errorHandler));
+    return this.http.get<any>('http://localhost:8080/getposts',{headers:headers}).pipe(catchError(this.errorHandler));
+  }
+  
+  getUsers() {
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    return this.http.get<any>('http://localhost:8080/getusers',{headers:headers}).pipe(catchError(this.errorHandler));
   }
 
   errorHandler(error: HttpErrorResponse) {
