@@ -3,7 +3,7 @@
     <div class="col-sm-1 sidenav">
     </div>
     <div class="col-sm-9 text-left jumbotron">
-      <div>
+      <!-- <div>
         <form>
           <div class="form-group">
             <p>post here</p>
@@ -11,27 +11,37 @@
           </div>
           <div class="form-group"><button class="btn btn-primary float-right" (click)="newpost(newpostarea.value);newpostarea.value='';">post</button></div>
         </form>
-      </div>
+      </div> -->
       <div>
-       My posts go here
+       Community posts go here
         <!-- <div *ngFor="let post of posts">{{post.post}}
           <div *ngFor="let comment of post.comments">{{comment}}</div>
 
+
+          
         </div> -->
-        <div *ngFor="let post of users">
+
+        <div *ngFor="let user of users">
           <!-- <ng-container *ngIf="post.comments.length"> -->
           <!-- <h1>{{user.name}}'s Posts</h1> -->
 
           <div>
-            <p class="lead">{{post.post}}</p>
-            <div *ngFor="let comment of post.comments">
-              <div>
-                <p>{{comment}}</p>
-                <p>by: {{post.userId}}</p>
+            <h1 *ngIf="showuser">{{user.name}}</h1>
+            <div class="container">
+              <div *ngFor="let post of posts">
+                <div *ngIf="post.userId==user.email && post.post !=''">
+                  <p class="lead">{{post.post}}</p>
+                  <div class="container">
+                    <div *ngFor="let comment of post.comments">
+                      <p class="commentUser">{{comment.user}}:</p>
+                      <p class="comment">{{comment.content}}</p>
+                    </div>
+                  </div>
+                  <textarea #comment class="form-control" rows="1"></textarea>
+                  <button class="btn btn-primary btn-sm float-right" (click)="postComment(comment,user.email)">comment</button>
+                </div>
               </div>
             </div>
-            <textarea #comment class="form-control" rows="1"></textarea>
-            <button class="btn btn-primary btn-sm float-right" (click)="postComment(comment,user.email)">comment</button>
           </div>
           <hr class="my-3">
         <!-- </ng-container> -->

@@ -92,13 +92,40 @@ app.get('/',(req,res)=>{
 app.post('/getposts',(req,res)=>{
    // console.log(req.body.email);
     postsModel.find({userId:req.body.userId},(err,data)=>{
+        
         if(data){
-            //console.log(data);
+          // console.log(data);
            return res.send(data);
         }
         res.send({error:err})
     })
 });
+
+
+app.get('/getposts',(req,res)=>{
+    // console.log(req.body.email);
+     postsModel.find({},(err,data)=>{
+         
+         if(data){
+           // console.log(data);
+            return res.send(data);
+         }
+         res.send({error:err})
+     })
+ });
+
+ app.get('/getusers',(req,res)=>{
+    // console.log(req.body.email);
+     MongoModel.find({},(err,data)=>{
+         
+         if(data){
+           // console.log(data);
+            return res.send(data);
+         }
+         res.send({error:err})
+     })
+ });
+
 
 app.post('/post',(req,res)=>{
     newPost = new postsModel({post:req.body.post,userId:req.body.userId});

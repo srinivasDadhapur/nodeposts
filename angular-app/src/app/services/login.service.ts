@@ -9,7 +9,7 @@ import { throwError } from 'rxjs';
 export class LoginService {
 
   constructor(private http:HttpClient) { }
-
+  
   authenticateUser(user){
       let headers = new HttpHeaders().set('Content-Type','application/json');
       return this.http.post<any>('http://localhost:8080/authenticate',user,{headers:headers})
