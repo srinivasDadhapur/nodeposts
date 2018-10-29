@@ -21,12 +21,18 @@ export class FeedService {
     return this.http.get<any>('http://localhost:8080/getusers',{headers:headers}).pipe(catchError(this.errorHandler));
   }
 
+  getUsername(clienttoken){
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    return this.http.post<any>('http://localhost:8080/jwtaccess',{token:clienttoken},{headers:headers}).pipe(catchError(this.errorHandler));
+  }
+
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
   }
-  postComments(comment, username) {
-    // let headers = new HttpHeaders().set('Content-Type','application/json');
-    // return this.http.put<any>('http://localhost:8080/getposts',{comment:comment,user:username},{headers:headers}).pipe(catchError(this.errorHandler));
+  postComments(id, comment, user) {
+    
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    return this.http.put<any>('http://localhost:8080/postcomment',{comment:comment,user:user,id:id},{headers:headers}).pipe(catchError(this.errorHandler));
   }
   addPost(post,username){
     let headers = new HttpHeaders().set('Content-Type','application/json');

@@ -74,13 +74,13 @@ const postsModel = mongoose.model('post',postSchema);
 
 
 app.post('/jwtaccess',(req,res)=>{
-    console.log(req.body.jwttoken);
-    jwtModel.findOne({token:req.body.jwttoken},(err,token)=>{
+    console.log(req.body.token);
+    jwtModel.findOne({token:req.body.token},(err,token)=>{
 
         if(!token){
             return res.status(403).send({tokenexists:false});
         }
-        res.send({tokenexists:true,token:token});
+        res.send({tokenexists:true,token:token.user.name});
     });
 })
 
@@ -138,32 +138,38 @@ app.post('/post',(req,res)=>{
         }
     });
 });
-
 app.put('/postcomment',(req,res)=>{
-    console.log(req.body.user);
-    MongoModel.findOne({email:req.body.user},(err,data)=>{
-        if(data){
-            let post;
-            console.log(req.body.post);
-            data.posts.forEach(element => {
-                if(element.post==req.body.post){
-                    console.log(data.posts);
-                    //  data.posts.comments.push({"comment":"success adding comment","user":"admin"});
-                    data.save(error=>{
-                        return console.log('returned');
-                    });
-                }
-            });
-           return res.send({success:true,msg:"posted the comment successfully!"});
-        }
-        res.send({error:err})
+    // console.log(req.body.post);
+    let comment = req.body.comment;
+    let user = req.body.user;
+    postsModel.update({_id:req.body.id},{$push:{comments:{"content":comment,"user":user}}},(err,data)=>{
+         if(data.nModified){
+             return res.send({success:true,msg:"posted your comment successfully"});
+         }
+         else{
+             res.send({success:false,msg:"cannot post your comment"})
+         }
+        //     let post;
+        //     console.log(req.body.post);
+        //     data.posts.forEach(element => {
+        //         if(element.post==req.body.post){
+        //             console.log(data.posts);
+        //             //  data.posts.comments.push({"comment":"success adding comment","user":"admin"});
+        //             data.save(error=>{
+        //                 return console.log('returned');
+        //             });
+        //         }
+        //     });
+        //    return res.send({success:true,msg:"posted the comment successfully!"});
+        // }
+        // res.send({error:err})
     })
 });
 
 
 
 app.post('/register',(req,res)=>{
-    newUser = new MongoModel({name:req.body.name,email:req.body.email,password:req.body.password,posts:req.body.posts});
+    newUser = new MongoModel({name:req.body.name,email:req.body.email,password:req.body.password});
     addUser(newUser,(err,user)=>{
         if(err) {
              res.send({success:false,msg:err}) 
