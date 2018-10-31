@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
+
   constructor() { }
 
   ngOnInit() {
   }
+
+  checkUser(): boolean{
+    if(localStorage.getItem('userToken')){
+      return true;
+    }
+    return false;
+  }
+  clearItem(){
+    localStorage.removeItem('userToken');
+  }
+
+
 
 }

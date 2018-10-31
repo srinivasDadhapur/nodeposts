@@ -74,13 +74,13 @@ const postsModel = mongoose.model('post',postSchema);
 
 
 app.post('/jwtaccess',(req,res)=>{
-    console.log(req.body.token);
-    jwtModel.findOne({token:req.body.token},(err,token)=>{
+    // console.log(req.body.token);
+    jwtModel.findOne({token:req.body.token},(err,userToken)=>{
 
-        if(!token){
+        if(!userToken){
             return res.status(403).send({tokenexists:false});
         }
-        res.send({tokenexists:true,token:token.user.name});
+        res.send({tokenexists:true,token:userToken.token,name:userToken.user.name,email:userToken.user.email});
     });
 })
 

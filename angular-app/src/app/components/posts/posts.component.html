@@ -8,33 +8,35 @@
           <div class="form-group">
             <p>post here</p>
             <textarea #newpostarea type="text" class="form-control"></textarea>
+            <small #postalert class="text-danger" hidden>please enter something to post</small>
           </div>
-          <div class="form-group"><button class="btn btn-primary float-right" (click)="newpost(newpostarea.value);newpostarea.value='';">post</button></div>
+          <div class="form-group"><button class="btn btn-primary float-right" (click)="newpost(newpostarea.value,postalert);newpostarea.value='';">post</button></div>
         </form>
       </div>
       <div>
-       My posts go here
+      
         <!-- <div *ngFor="let post of posts">{{post.post}}
           <div *ngFor="let comment of post.comments">{{comment}}</div>
 
         </div> -->
-        <div *ngFor="let post of users">
+        <div *ngFor="let post of posts">
           <!-- <ng-container *ngIf="post.comments.length"> -->
           <!-- <h1>{{user.name}}'s Posts</h1> -->
 
-          <div>
+          <div class="container">
             <p class="lead">{{post.post}}</p>
-            <div *ngFor="let comment of post.comments">
+            <div *ngFor="let comment of post.comments" class="container">
               <div>
-                <p>{{comment}}</p>
-                <p>by: {{post.userId}}</p>
+                <p class="commentUser">{{comment.user}}:</p>
+                <p class="comment">{{comment.content}}</p>
               </div>
             </div>
-            <textarea #comment class="form-control" rows="1"></textarea>
-            <button class="btn btn-primary btn-sm float-right" (click)="postComment(comment,user.email)">comment</button>
+            <textarea #commentvar class="form-control" rows="1"></textarea>
+            <small class="text-danger" #commentvalid hidden>comment should not be empty</small>
+            <button class="btn btn-primary btn-sm float-right" (click)="postComment(commentvalid,commentvar.value,post._id)">comment</button>
           </div>
-          <hr class="my-3">
         <!-- </ng-container> -->
+        <br>
         </div>
       </div>
     </div>
