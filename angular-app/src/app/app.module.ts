@@ -14,15 +14,17 @@ import { HomeComponent } from './components/home/home.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostsService } from './services/posts.service';
 import { FriendsComponent } from './components/friends/friends.component';
-
+import { RouteGuard } from './guards/route.guard';
+import { FlashMessagesModule,FlashMessagesService  } from 'angular2-flash-messages';
+import { LoginGuard } from './guards/login.guard';
 
 const appRoutes: Routes = [
-  {path :'',component:HomeComponent},
-  {path: 'home', component: HomeComponent},
-  { path: 'login', component: LoginComponent },
-  { path: 'profile',component: ProfileComponent },
-  {path:'posts',component:PostsComponent},
-  {path:'friends',component:FriendsComponent}
+  {path :'',component:HomeComponent,canActivate:[LoginGuard]},
+  {path: 'home', component: HomeComponent, canActivate:[LoginGuard]},
+  { path: 'login', component: LoginComponent,canActivate:[LoginGuard]},
+  { path: 'profile',component: ProfileComponent,canActivate:[RouteGuard]},
+  {path:'posts',component:PostsComponent,canActivate:[RouteGuard]},
+  {path:'friends',component:FriendsComponent,canActivate:[RouteGuard]}
 ];
 
 
@@ -40,9 +42,10 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FlashMessagesModule
   ],
-  providers: [LoginService,PostsService],
+  providers: [LoginService,PostsService,RouteGuard,FlashMessagesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
