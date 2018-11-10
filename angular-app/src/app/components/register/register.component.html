@@ -2,27 +2,26 @@
 
 <div style="text-align:center">
     <div class="jumbotron container">
-      <form (submit)="loginUser()">
+      <form (submit)="registerUser()">
 
         <table align="center">
   <tr>
         <div class="form-group">
-         <input type="text" class="form-control" [(ngModel)]="username" placeholder="Username" name="username">
+         <input type="text" class="form-control" [(ngModel)]="name" placeholder="Name" name="name">
         </div>
       </tr>
+      <tr>
+            <div class="form-group">
+             <input type="text" class="form-control" [(ngModel)]="username" placeholder="email" name="username">
+            </div>
+          </tr>
       <tr>
           <div class="form-group">
           <input type="password" class="form-control" [(ngModel)]="password" placeholder="Password" name="password">
         </div>
       </tr>
       <tr>
-        <input type="submit" value="login" class='btn btn-primary btn-block'>
-      </tr>
-      <tr>
-        or
-      </tr>
-      <tr>
-        <button class="badge badge-success badge-round" [routerLink]="['/register']">Register</button>
+        <input type="submit" value="Register" class='btn btn-primary btn-block'>
       </tr>
 
       </table>

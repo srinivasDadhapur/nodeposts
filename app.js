@@ -15,12 +15,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/mongoposts',{useNewUrlParser:true});
 
 mongoose.connection.on('connected',()=>{
     console.log('Connected');
-    
+
 })
 
 mongoose.connection.on('error',()=>{
     console.log('cannot connect to the mongoose');
-    
+
 })
 
 const userSchema = mongoose.Schema({
@@ -92,7 +92,7 @@ app.get('/',(req,res)=>{
 app.post('/getposts',(req,res)=>{
    // console.log(req.body.email);
     postsModel.find({userId:req.body.userId},(err,data)=>{
-        
+
         if(data){
           // console.log(data);
            return res.send(data);
@@ -105,7 +105,7 @@ app.post('/getposts',(req,res)=>{
 app.get('/getposts',(req,res)=>{
     // console.log(req.body.email);
      postsModel.find({},(err,data)=>{
-         
+
          if(data){
            // console.log(data);
             return res.send(data);
@@ -117,7 +117,7 @@ app.get('/getposts',(req,res)=>{
  app.get('/getusers',(req,res)=>{
     // console.log(req.body.email);
      MongoModel.find({},(err,data)=>{
-         
+
          if(data){
            // console.log(data);
             return res.send(data);
@@ -172,14 +172,14 @@ app.post('/register',(req,res)=>{
     newUser = new MongoModel({name:req.body.name,email:req.body.email,password:req.body.password});
     addUser(newUser,(err,user)=>{
         if(err) {
-             res.send({success:false,msg:err}) 
-             console.log('Failure');
-             
+             res.send({success:false,msg:err})
+             // console.log('Failure');
+
             }
         else {
-            res.send({success:true,msg:user});
-            console.log('Success!');
-            
+            res.send({success:true,msg:'registered successfully'});
+            // console.log('Success!');
+
         }
     });
 });
@@ -201,17 +201,17 @@ app.post('/authenticate',(req,res)=>{
 
                         });
                         res.send({ success: true, token: token, email: username, msg: 'Logged in' });
-                        
+
                     }
                     else{
                         res.send({ success: true,token: jwtuser.token, email: jwtuser.username, msg: 'Already Logged in' });
-                        
+
                     }
                 });
                 // const token = jwt.sign({data:user},'my secret key');
                 // new jwtModel({token:token,user:user}).save((err,token)=>{
                 //         console.log(token);
-                        
+
                 // });
                 //res.send({success:true,token:token,email:user.email, msg:'Logged in'});
                 //res.send({msg:"Hi there"});
@@ -219,7 +219,7 @@ app.post('/authenticate',(req,res)=>{
                 res.status(403).send({success:false,msg:'invalid password'});
             }
         });
-        
+
     });
 })
 
@@ -229,7 +229,7 @@ function comparePassword(userPass,password,callback){
         else {
             callback(null,resp);
         }
-        
+
     });
 }
 
@@ -238,7 +238,7 @@ function addUser(addUser,callback){
     bcrypt.hash(addUser.password,10,(err,hash)=>{
         addUser.password = hash;
         addUser.save(callback);
-        
+
     });
 }
 
