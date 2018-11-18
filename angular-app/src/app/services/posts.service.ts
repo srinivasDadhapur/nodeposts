@@ -10,7 +10,7 @@ import { FeedService } from './feed.service';
 export class PostsService {
 
   constructor(private http: HttpClient, private feedService: FeedService) { }
-  
+
 
   getPosts(userId) {
     let headers = new HttpHeaders().set('Content-Type','application/json');
@@ -20,8 +20,8 @@ export class PostsService {
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
   }
-  addPost(post,username){
+  addPost(title,post,username){
     let headers = new HttpHeaders().set('Content-Type','application/json');
-    return this.http.post<any>('http://localhost:8080/post',{userId:username,post:post},{headers:headers}).pipe(catchError(this.errorHandler));
+    return this.http.post<any>('http://localhost:8080/post',{title:title,userId:username,post:post},{headers:headers}).pipe(catchError(this.errorHandler));
   }
 }

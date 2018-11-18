@@ -32,9 +32,9 @@ export class PostsComponent implements OnInit {
         });
     }
 
-    newpost(newpostval,postalert) {
+    newpost(title,newpostval,postalert) {
         if (newpostval != '') {
-            this.postService.addPost(newpostval, this.userId).subscribe(data => {
+            this.postService.addPost(title,newpostval, this.userId).subscribe(data => {
                 if(data){
                     this.getposts(this.userId);
                 }
@@ -46,7 +46,7 @@ export class PostsComponent implements OnInit {
     }
 
 
-    
+
     postComment(validcomment, comment, id) {
         if (comment != '') {
             let token = localStorage.getItem('userToken');

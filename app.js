@@ -51,6 +51,7 @@ const jwtModel = mongoose.model('jwttoken',jwtSchema);
 
 const postSchema = mongoose.Schema(
     {
+        title:String,
         post:String,
         comments:[{}],
         userId:String
@@ -128,12 +129,13 @@ app.get('/getposts',(req,res)=>{
 
 
 app.post('/post',(req,res)=>{
-    newPost = new postsModel({post:req.body.post,userId:req.body.userId});
+    newPost = new postsModel({title:req.body.title,post:req.body.post,userId:req.body.userId});
     newPost.save((err,data)=>{
         if(err){
             res.status(403).send({success:false,msg:'cannot post your data'});
         }
         else{
+          console.log(data);
             res.status(200).send({success:true,msg:'posted your data successfully'});
         }
     });
@@ -173,12 +175,12 @@ app.post('/register',(req,res)=>{
     addUser(newUser,(err,user)=>{
         if(err) {
              res.send({success:false,msg:err})
-             // console.log('Failure');
+             console.log('Failure');
 
             }
         else {
-            res.send({success:true,msg:'registered successfully'});
-            // console.log('Success!');
+            res.send({success:true,msg:user});
+            console.log('Success!');
 
         }
     });
