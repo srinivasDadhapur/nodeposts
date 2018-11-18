@@ -17,7 +17,7 @@ import { FriendsComponent } from './components/friends/friends.component';
 import { RouteGuard } from './guards/route.guard';
 import { FlashMessagesModule,FlashMessagesService  } from 'angular2-flash-messages';
 import { LoginGuard } from './guards/login.guard';
-import { RegisterComponent } from './components/register/register.component';
+import { RegisterComponent } from './components/register/register.component'
 
 const appRoutes: Routes = [
   {path :'',component:HomeComponent,canActivate:[LoginGuard]},
@@ -26,7 +26,7 @@ const appRoutes: Routes = [
   { path: 'profile',component: ProfileComponent,canActivate:[RouteGuard]},
   {path:'posts',component:PostsComponent,canActivate:[RouteGuard]},
   {path:'friends',component:FriendsComponent,canActivate:[RouteGuard]},
-  {path:'register',component:RegisterComponent, canActivate:[LoginGuard]}
+  {path:'register',component:RegisterComponent,canActivate:[LoginGuard]}
 ];
 
 

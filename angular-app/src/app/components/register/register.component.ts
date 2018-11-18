@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
     }
     else {
       let user = {
-        name: this.name
+        name: this.name,
         email: this.username,
         password: this.password
       }
