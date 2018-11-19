@@ -9,7 +9,11 @@ import { FeedService } from './feed.service';
 })
 export class PostsService {
 
-  constructor(private http: HttpClient, private feedService: FeedService) { }
+
+  constructor(private http: HttpClient, private feedService: FeedService) {
+    console.log('New instance is created');
+    
+   }
 
 
   getPosts(userId) {

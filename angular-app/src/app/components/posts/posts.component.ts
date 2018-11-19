@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../../services/posts.service';
 import { LoginService } from '../../services/login.service';
 import { FeedService } from '../../services/feed.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { Router } from '@angular/router';
 @Component({
     selector: 'app-posts',
     templateUrl: './posts.component.html',
@@ -10,9 +12,15 @@ import { FeedService } from '../../services/feed.service';
 export class PostsComponent implements OnInit {
 
     private posts = [];
+    private post;
+    private title;
     private userId;
 
-    constructor(private postService: PostsService, private loginService: LoginService, private feedService:FeedService) { }
+    constructor(private postService: PostsService, 
+            private loginService: LoginService, 
+            private feedService:FeedService,
+            private router: Router,
+            private flashmessages: FlashMessagesService) { }
 
     ngOnInit() {
         let token = localStorage.getItem('userToken');
@@ -28,21 +36,26 @@ export class PostsComponent implements OnInit {
     getposts(email) {
         this.postService.getPosts(email).subscribe(data => {
             this.posts = data;
-            // console.log(data);
+            // console.log(this.posts);
         });
     }
 
-    newpost(title,newpostval,postalert) {
-        if (newpostval != '') {
-            this.postService.addPost(title,newpostval, this.userId).subscribe(data => {
+    newpost() {
+        if (this.post !=undefined && this.title!=undefined) {
+            this.postService.addPost(this.title,this.post, this.userId).subscribe(data => {
                 if(data){
-                    this.getposts(this.userId);
+                    this.flashmessages.show('Posted Successfully!',{cssClass:'text-success',timeout:1500});
                 }
             });
         }
         else{
-            postalert.hidden = false
+            this.flashmessages.show('Something went wrong, Please check the content and try again',{cssClass:'text-danger',timeout:1500});
+            
         }
+    }
+
+    postDetails(postid){
+        this.router.navigate(['postdetails']);
     }
 
 
