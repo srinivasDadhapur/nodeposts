@@ -95,8 +95,13 @@ app.post('/getposts',(req,res)=>{
     postsModel.find({userId:req.body.userId},(err,data)=>{
 
         if(data){
-          // console.log(data);
-           return res.send(data);
+            let sendUser = [];
+            data.forEach(element=>{
+                sendUser.push({post:element.post.slice(0,50),title:element.title,_id:element._id});
+            });
+            // console.log(sendUser);
+            
+           return res.send(sendUser);
         }
         res.send({error:err})
     })
@@ -108,8 +113,13 @@ app.get('/getposts',(req,res)=>{
      postsModel.find({},(err,data)=>{
 
          if(data){
-           // console.log(data);
-            return res.send(data);
+            let sendUser = [];
+            data.forEach(element=>{
+                sendUser.push({post:element.post.slice(0,50),title:element.title,_id:element._id});
+            });
+            // console.log(sendUser);
+            
+           return res.send(sendUser);
          }
          res.send({error:err})
      })
