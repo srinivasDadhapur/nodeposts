@@ -108,6 +108,27 @@ app.post('/getposts',(req,res)=>{
 });
 
 
+
+app.post('/getpost',(req,res)=>{
+    // console.log(req.body.email);
+     postsModel.findOne({_id:req.body.id},(err,data)=>{
+ 
+         if(data){
+             let sendUser = {
+                 post:data.post,
+                 title:data.title,
+                 _id:data._id,
+                 comments:data.comments
+             }
+            return res.send(sendUser);
+         }
+         res.send({error:err})
+     })
+ });
+
+
+
+
 app.get('/getposts',(req,res)=>{
     // console.log(req.body.email);
      postsModel.find({},(err,data)=>{
@@ -117,7 +138,7 @@ app.get('/getposts',(req,res)=>{
             data.forEach(element=>{
                 sendUser.push({post:element.post.slice(0,50),title:element.title,_id:element._id});
             });
-            // console.log(sendUser);
+            console.log(sendUser);
             
            return res.send(sendUser);
          }

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
 import { LoginService } from '../../services/login.service'
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
+
+@ViewChild('')
 
 @Component({
   selector: 'app-login',
@@ -20,7 +22,7 @@ export class LoginComponent implements OnInit {
     
   }
 
-  loginUser() {
+  loginUser(loginForm) {
 
     if (this.username == undefined) {
       return this.flashmessages.show('please enter user name' , {cssClass: 'alert-danger',timeout:1000});
@@ -44,10 +46,11 @@ export class LoginComponent implements OnInit {
         }
       }, error => {
         if(error.error.msg=='invalid user'){
-          this.flashmessages.show('User does not exists' , {cssClass: 'alert-danger',timeout:1500});
+          this.flashmessages.show('User does not exists' , {timeout:1500});
+          loginForm.reset();
         }
         else if(error.error.msg='invalid password'){
-          this.flashmessages.show('invalid password' , {cssClass: 'alert-danger',timeout:1500});
+          this.flashmessages.show('invalid password' , {timeout:1500});
         }
 
       });

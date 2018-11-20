@@ -2,16 +2,13 @@
   <div class="row content">
     <div class="col-sm-1 sidenav">
     </div>
-
-
-
     <div class="col-sm-9 text-left">
-
-
       <nav class="bg-light">
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <a class="nav-item nav-link" id="nav-new-tab" data-toggle="tab" href="#nav-new" role="tab" aria-controls="nav-new" aria-selected="false">New</a>
-          <a class="nav-item nav-link active" id="nav-article-tab" data-toggle="tab" href="#nav-articles" role="tab" aria-controls="nav-articles" aria-selected="true">My Articles</a>
+          <a class="nav-item nav-link" id="nav-new-tab" data-toggle="tab" href="#nav-new" role="tab" aria-controls="nav-new"
+            aria-selected="false">New</a>
+          <a class="nav-item nav-link active" id="nav-article-tab" data-toggle="tab" href="#nav-articles" role="tab"
+            aria-controls="nav-articles" aria-selected="true">My Articles</a>
         </div>
       </nav>
       <div class="tab-content" id="nav-tabContent">
@@ -20,69 +17,44 @@
             <form #postForm="ngForm">
 
               <div class="form-group">
-                <textarea #posttitle="ngModel" [(ngModel)]="title" name="posttitle" type="text" class="form-control form-control-sm" rows="1" placeholder="Title" [class.is-invalid]="posttitle.invalid && posttitle.touched" required>
+                <textarea #posttitle="ngModel" [(ngModel)]="title" name="posttitle" type="text" class="form-control form-control-sm"
+                  rows="1" placeholder="Title" [class.is-invalid]="posttitle.invalid && posttitle.touched" required>
                 </textarea>
                 <small class="text-danger" [class.d-none]="posttitle.valid || posttitle.untouched">Title is required</small>
               </div>
 
               <div class="form-group">
-                <textarea #newpostarea="ngModel" [(ngModel)]="post" name="post" [class.is-invalid]="newpostarea.invalid && newpostarea.touched" type="text" class="form-control" placeholder="Content" rows="5" required></textarea>
-                <small  class="text-danger" [class.d-none]= "newpostarea.valid || newpostarea.untouched">Content is required to post</small>
+                <textarea #newpostarea="ngModel" [(ngModel)]="post" name="post" [class.is-invalid]="newpostarea.invalid && newpostarea.touched"
+                  type="text" class="form-control" placeholder="Content" rows="5" required></textarea>
+                <small class="text-danger" [class.d-none]="newpostarea.valid || newpostarea.untouched">Content is
+                  required to post</small>
               </div>
               <div class="form-group">
-                <button class="btn btn-primary float-right" (click)="newpost();postForm.reset();" [disabled]="postForm.invalid" >post</button>
+                <button class="btn btn-primary float-right" (click)="newpost();postForm.reset();" [disabled]="postForm.invalid">post</button>
               </div>
 
             </form>
-            <flash-messages ></flash-messages>
+            <flash-messages></flash-messages>
           </div>
         </div>
 
         <div class="tab-pane fade show active" id="nav-articles" role="tabpanel" aria-labelledby="nav-articles-tab">
-            <div *ngFor="let post of posts" class="jumbotron">
-              <!-- <ng-container *ngIf="post.comments.length"> -->
-              <!-- <h1>{{user.name}}'s Posts</h1> -->
-                <p class="lead">{{post.title}}</p>
-                <hr class="my-4">
-                <div>
-                  <p>{{post.post}}....
-                    <button class="btn badge badge-sm badge-info" (click)="postDetails(post._id)">Read more</button>
-                  </p>
+          <div *ngFor="let post of posts" class="jumbotron">
+            <p class="lead">{{post.title}}</p>
+            <hr class="my-4">
+            <div>
+              <p>{{post.post}}....
+                <button class="btn badge badge-sm badge-info" (click)="postDetails(post._id)">Read more</button>
+              </p>
 
-                </div>
-                <!-- <div *ngFor="let comment of post.comments" class="container">
-                  <div>
-                    <p class="commentUser">{{comment.user}}:</p>
-                    <p class="comment">{{comment.content}}</p>
-                  </div>
-                </div> -->
-                <!-- <textarea #commentvar class="form-control" rows="1"></textarea>
-                <small class="text-danger" #commentvalid hidden>comment should not be empty</small>
-                <button class="btn btn-primary btn-sm float-right" (click)="postComment(commentvalid,commentvar.value,post._id)">comment</button> -->
-            <!-- </ng-container> -->
             </div>
-            <br>
+          </div>
+          <br>
         </div>
       </div>
-
-
-
     </div>
-
-
-
-
 
     <div class="col-sm-1 sidenav">
     </div>
   </div>
 </div>
-<!-- <div>somepost here</div>
-<form>
-<div class="form-group">
-  <textarea name="comment" class="form-control"></textarea>
-</div>
-<div class="form-group">
-  <button class="btn-sm btn-primary float-right">comment</button>
-</div>
-</form> -->

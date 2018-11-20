@@ -2,36 +2,16 @@
   <div class="row content">
     <div class="col-sm-1 sidenav">
     </div>
-    <div class="col-sm-9 text-left jumbotron">
-  
-      <div>
-       Community posts go here
-    
-
-        <div *ngFor="let user of users">
-         <br>
-          <div>
-            <h1 *ngIf="checkUser(user.email)">{{user.name}}</h1>
-            <div class="container">
-              <div *ngFor="let post of posts">
-                <div *ngIf="post.userId==user.email && post.post !=''">
-                  <p class="lead">{{post.post}}</p>
-                  <div class="container">
-                    <div *ngFor="let comment of post.comments">
-                      <p class="commentUser">{{comment.user}}:</p>
-                      <p class="comment">{{comment.content}}</p>
-                    </div>
-                    <textarea #commentvar class="form-control" rows="1"></textarea>
-                    <small class="text-danger" #commentvalid hidden>comment should not be empty</small>
-                    <button class="btn btn-primary btn-sm float-right" (click)="postComment(commentvalid,commentvar.value,post._id)">comment</button>
-                  </div>
-                </div>
+    <div class="col-sm-9 text-left">
+        <div *ngFor="let post of posts" class="jumbotron container">
+              <p class="lead">{{post.title}}</p>
+              <hr class="my-4">
+              <div>
+                <p>{{post.post}}....
+                  <button class="btn badge badge-sm badge-info" (click)="postDetails(post._id)">Read more</button>
+                </p>
               </div>
-            </div>
           </div>
-        <!-- </ng-container> -->
-        </div>
-      </div>
     </div>
     <div class="col-sm-1 sidenav">
     </div>

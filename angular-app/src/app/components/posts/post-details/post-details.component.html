@@ -1,39 +1,26 @@
 <div class="container text-center">
-    <div class="row content">
-      <div class="col-sm-1 sidenav">
-      </div>
-      <div class="col-sm-9 text-left jumbotron">
-    
-        <div>
-         Community posts go here
-      
-  
-          <div *ngFor="let user of users">
-           <br>
-            <div>
-              <h1 *ngIf="checkUser(user.email)">{{user.name}}</h1>
-              <div class="container">
-                <div *ngFor="let post of posts">
-                  <div *ngIf="post.userId==user.email && post.post !=''">
-                    <p class="lead">{{post.post}}</p>
-                    <div class="container">
-                      <div *ngFor="let comment of post.comments">
-                        <p class="commentUser">{{comment.user}}:</p>
-                        <p class="comment">{{comment.content}}</p>
-                      </div>
-                      <textarea #commentvar class="form-control" rows="1"></textarea>
-                      <small class="text-danger" #commentvalid hidden>comment should not be empty</small>
-                      <button class="btn btn-primary btn-sm float-right" (click)="postComment(commentvalid,commentvar.value,post._id)">comment</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <!-- </ng-container> -->
-          </div>
+  <div class="row content">
+    <div class="col-sm-1 sidenav">
+    </div>
+    <div class="col-sm-9 text-left jumbotron">
+
+      <br>
+      <p class="lead">{{post.title}}</p>
+      <hr class="my-4">
+      <p>{{post.post}}</p>
+      <div class="container border bg-light rounded p-4">
+        <div *ngFor="let comment of post.comments">
+            <strong>{{comment.user}}: </strong>
+            <small>{{comment.content}}</small>
         </div>
+        <textarea #commentref="ngModel" [(ngModel)]="comment" name="commentname" [class.is-invalid]="commentref.invalid && commentref.touched" type="text" class="form-control form-control-sm" placeholder="type you comment here" rows="3" required></textarea>
+        <!-- <small class="text-danger" #commentvalid hidden>comment should not be empty</small> -->
+        <button class="btn btn-primary badge btn-sm" (click)="postComment(post._id);" [disabled]="commentref.invalid">comment</button>
+        <small  class="text-danger float-right" [class.d-none]= "commentref.valid || commentref.untouched">Please enter something to comment</small>
       </div>
-      <div class="col-sm-1 sidenav">
-      </div>
+      <!-- </ng-container> -->
+    </div>
+    <div class="col-sm-1 sidenav">
     </div>
   </div>
+</div>
