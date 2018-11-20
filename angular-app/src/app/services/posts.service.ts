@@ -11,8 +11,14 @@ export class PostsService {
 
 
   constructor(private http: HttpClient, private feedService: FeedService) {
-    console.log('New instance is created');
+    // console.log('New instance is created');
     
+   }
+
+
+   getPost(postId){
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    return this.http.post<any>('http://localhost:8080/getpost',{id:postId},{headers:headers}).pipe(catchError(this.errorHandler));
    }
 
 

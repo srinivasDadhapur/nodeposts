@@ -45,42 +45,21 @@ export class PostsComponent implements OnInit {
             this.postService.addPost(this.title,this.post, this.userId).subscribe(data => {
                 if(data){
                     this.flashmessages.show('Posted Successfully!',{cssClass:'text-success',timeout:1500});
+                    this.getposts(this.userId);
                 }
             });
         }
         else{
-            this.flashmessages.show('Something went wrong, Please check the content and try again',{cssClass:'text-danger',timeout:1500});
+            this.flashmessages.show('Something went wrong, Please try again',{cssClass:'text-danger',timeout:1500});
             
         }
     }
 
     postDetails(postid){
-        this.router.navigate(['postdetails']);
+        this.router.navigate(['/postdetails',postid]);
     }
 
-
-
-    postComment(validcomment, comment, id) {
-        if (comment != '') {
-            let token = localStorage.getItem('userToken');
-            this.feedService.getUsername(token).subscribe(data => {
-                let postedUser = data.name;
-                this.feedService.postComments(id, comment, postedUser).subscribe(data => {
-                    // console.log(data);
-                    this.getposts(this.userId);
-                }, error => {
-                    // console.log(error);
-                });
-            });
-        }
-        else {
-            validcomment.hidden = false;
-        }
-        // console.log(comment+ " " + user+ " postedUser: "+ postedUser+ " post"+id);
-
-    }
-
-
+    
     // postComment(commentarea,user){
     //   console.log(commentarea.value+ ' User is : '+user)
     //   this.postService.postComments(commentarea,user).subscribe(data => {

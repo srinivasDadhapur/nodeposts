@@ -1,22 +1,24 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
-<div style="text-align:center">
-    <div class="jumbotron container">
-      <form (submit)="loginUser()">
-
+<div style="text-align:center" class="container">
+    <div class="jumbotron container-fluid">
+      <flash-messages class="lead text-danger"></flash-messages>
+      <form #loginForm="ngForm" (submit)="loginUser(loginForm);">
         <table align="center">
-  <tr>
+      <tr>
         <div class="form-group">
-         <input type="text" class="form-control" [(ngModel)]="username" placeholder="Username" name="username">
+         <input type="text" class="form-control" #usernameref="ngModel" [(ngModel)]="username" placeholder="Username" name="username" [class.is-invalid]="usernameref.invalid && usernameref.touched" required>
+         <small class="text-danger" [class.d-none]="usernameref.valid || usernameref.untouched">Username is required</small>
         </div>
       </tr>
       <tr>
           <div class="form-group">
-          <input type="password" class="form-control" [(ngModel)]="password" placeholder="Password" name="password">
+          <input type="password" #passwordref="ngModel" class="form-control" [(ngModel)]="password" placeholder="Password" name="password" [class.is-invalid]="passwordref.invalid && passwordref.touched" required>
+          <small class="text-danger" [class.d-none]="passwordref.valid || passwordref.untouched">Password is required</small>
         </div>
       </tr>
       <tr>
-        <input type="submit" value="login" class='btn btn-primary btn-block'>
+        <input type="submit" value="login" class='btn btn-primary btn-block' [disabled]="loginForm.invalid">
       </tr>
       <tr>
         or

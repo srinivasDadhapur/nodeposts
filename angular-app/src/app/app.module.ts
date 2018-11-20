@@ -28,7 +28,7 @@ const appRoutes: Routes = [
   {path:'posts',component:PostsComponent,canActivate:[RouteGuard]},
   {path:'friends',component:FriendsComponent,canActivate:[RouteGuard]},
   {path:'register',component:RegisterComponent,canActivate:[LoginGuard]},
-  {path:'postdetails',component:PostDetailsComponent,canActivate:[RouteGuard]}
+  {path:'postdetails/:id',component:PostDetailsComponent,canActivate:[RouteGuard]}
 ];
 
 
