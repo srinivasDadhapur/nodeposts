@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import {  ActivatedRoute } from '@angular/router';
 import { PostsService } from 'src/app/services/posts.service';
 import { FeedService } from 'src/app/services/feed.service';
 
@@ -8,7 +8,9 @@ import { FeedService } from 'src/app/services/feed.service';
   templateUrl: './post-details.component.html',
   styleUrls: ['./post-details.component.css']
 })
+
 export class PostDetailsComponent implements OnInit {
+    @ViewChild('commentvalidref') commentrefvariable: ElementRef;
 
   private post = {};
   private comment;
@@ -32,7 +34,7 @@ export class PostDetailsComponent implements OnInit {
 
 
   postComment(id) {
-    if (this.comment != undefined) {
+    if (this.comment != undefined && this.comment.trim()!='') {
         let token = localStorage.getItem('userToken');
         this.feedService.getUsername(token).subscribe(data => {
             let postedUser = data.name;
@@ -46,7 +48,10 @@ export class PostDetailsComponent implements OnInit {
         });
     }
     else {
-        // validcomment.hidden = false;
+        setTimeout(() => {
+            this.commentrefvariable.nativeElement.hidden=true;
+        }, 1500);
+        this.commentrefvariable.nativeElement.hidden=false;
     }
     // console.log(comment+ " " + user+ " postedUser: "+ postedUser+ " post"+id);
 
