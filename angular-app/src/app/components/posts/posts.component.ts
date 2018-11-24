@@ -16,8 +16,8 @@ export class PostsComponent implements OnInit {
     private title;
     private userId;
 
-    constructor(private postService: PostsService, 
-            private loginService: LoginService, 
+    constructor(private postService: PostsService,
+            private loginService: LoginService,
             private feedService:FeedService,
             private router: Router,
             private flashmessages: FlashMessagesService) { }
@@ -51,7 +51,7 @@ export class PostsComponent implements OnInit {
         }
         else{
             this.flashmessages.show('Something went wrong, Please try again',{cssClass:'text-danger',timeout:1500});
-            
+
         }
     }
 
@@ -59,7 +59,7 @@ export class PostsComponent implements OnInit {
         this.router.navigate(['/postdetails',postid]);
     }
 
-    
+
     // postComment(commentarea,user){
     //   console.log(commentarea.value+ ' User is : '+user)
     //   this.postService.postComments(commentarea,user).subscribe(data => {

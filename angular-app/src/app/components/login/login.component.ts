@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
       this.loginAuth.authenticateUser(user).subscribe(data => {
         if (data.success) {
           localStorage.setItem('userToken', data.token);
-          //console.log(data); 
+          //console.log(data);
           this.router.navigate(['posts']);
         }
         else {
