@@ -15,7 +15,7 @@ export class FeedService {
     let headers = new HttpHeaders().set('Content-Type','application/json');
     return this.http.get<any>('http://localhost:8080/getposts',{headers:headers}).pipe(catchError(this.errorHandler));
   }
-  
+
   getUsers() {
     let headers = new HttpHeaders().set('Content-Type','application/json');
     return this.http.get<any>('http://localhost:8080/getusers',{headers:headers}).pipe(catchError(this.errorHandler));
@@ -30,7 +30,7 @@ export class FeedService {
     return throwError(error);
   }
   postComments(id, comment, user) {
-    
+
     let headers = new HttpHeaders().set('Content-Type','application/json');
     return this.http.put<any>('http://localhost:8080/postcomment',{comment:comment,user:user,id:id},{headers:headers}).pipe(catchError(this.errorHandler));
   }

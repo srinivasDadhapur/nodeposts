@@ -26,11 +26,13 @@ mongoose.connection.on('error',()=>{
 const userSchema = mongoose.Schema({
     name:{
         type:String,
-        required: true
+        required: true,
+        unique: true
     },
     email:{
         type:String,
-        required: true
+        required: true,
+        unique: true
     },
     password:{
         type:String,
@@ -100,7 +102,7 @@ app.post('/getposts',(req,res)=>{
                 sendUser.push({post:element.post.slice(0,50),title:element.title,_id:element._id});
             });
             // console.log(sendUser);
-            
+
            return res.send(sendUser);
         }
         res.send({error:err})
@@ -112,7 +114,7 @@ app.post('/getposts',(req,res)=>{
 app.post('/getpost',(req,res)=>{
     // console.log(req.body.email);
      postsModel.findOne({_id:req.body.id},(err,data)=>{
- 
+
          if(data){
              let sendUser = {
                  post:data.post,
@@ -139,7 +141,7 @@ app.get('/getposts',(req,res)=>{
                 sendUser.push({post:element.post.slice(0,50),title:element.title,_id:element._id});
             });
             console.log(sendUser);
-            
+
            return res.send(sendUser);
          }
          res.send({error:err})
@@ -206,12 +208,10 @@ app.post('/register',(req,res)=>{
     addUser(newUser,(err,user)=>{
         if(err) {
              res.send({success:false,msg:err})
-             console.log('Failure');
 
             }
         else {
             res.send({success:true,msg:user});
-            console.log('Success!');
 
         }
     });
