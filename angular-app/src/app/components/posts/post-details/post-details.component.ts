@@ -15,7 +15,7 @@ export class PostDetailsComponent implements OnInit {
   private post = {};
   private comment;
 
-  constructor(private route:ActivatedRoute,private postService:PostsService, private feedService: FeedService) { 
+  constructor(private route:ActivatedRoute,private postService:PostsService, private feedService: FeedService) {
   }
 
   ngOnInit() {
@@ -27,7 +27,7 @@ export class PostDetailsComponent implements OnInit {
     this.postService.getPost(this.route.snapshot.paramMap.get('id')).subscribe(data=>{
       this.post = data;
      //  console.log(this.post);
-      
+
     });
   }
 

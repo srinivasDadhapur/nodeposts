@@ -19,7 +19,7 @@
         <br>
         <textarea #commentref="ngModel" [(ngModel)]="comment" name="commentname" [class.is-invalid]="commentref.invalid && commentref.touched" type="text" class="form-control form-control-sm" placeholder="type you comment here" rows="3" required></textarea>
         <!-- <small class="text-danger" #commentvalid hidden>comment should not be empty</small> -->
-        <button class="btn btn-primary badge btn-sm" (click)="postComment(post._id)" [disabled]="commentref.invalid">comment</button>
+        <button class="btn btn-primary badge btn-sm" (click)="postComment(post._id);" [disabled]="commentref.invalid">comment</button>
         <!--  -->
         <small #commentvalidref class="text-danger float-right" hidden>Please enter something</small>
         <small class="text-danger float-right" [class.d-none]= "commentref.valid || commentref.untouched">Please enter something to comment</small>

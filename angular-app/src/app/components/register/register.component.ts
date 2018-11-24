@@ -1,6 +1,7 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit,OnDestroy} from '@angular/core';
 import { LoginService } from '../../services/login.service'
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
@@ -13,7 +14,7 @@ export class RegisterComponent implements OnInit {
   public username: string;
   public password: string;
   public name: string;
-  private registerSub: ISubscription;
+  private registerSub: Subscription;
 
   constructor(private loginAuth: LoginService, private router: Router,private flashmessages: FlashMessagesService) { }
 
