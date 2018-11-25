@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
   public username: string;
   public password: string;
   public name: string;
-  private registerSub: Subscription;
+  private registerSub;  
 
   constructor(private loginAuth: LoginService, private router: Router,private flashmessages: FlashMessagesService) { }
 
@@ -55,7 +55,9 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    this.registerSub.unsubscribe();
+    if (this.registerSub!=undefined) {
+      this.registerSub.complete();
+  }
   }
 
 }
