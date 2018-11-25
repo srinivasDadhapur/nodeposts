@@ -33,14 +33,14 @@ export class PostDetailsComponent implements OnInit {
 
 
 
-  postComment(id) {
+  postComment(id,commentForm) {
     if (this.comment != undefined && this.comment.trim()!='') {
         let token = localStorage.getItem('userToken');
         this.feedService.getUsername(token).subscribe(data => {
             let postedUser = data.name;
             this.feedService.postComments(id, this.comment, postedUser).subscribe(data => {
                 // console.log(data);
-                this.comment = '';
+                commentForm.reset();
                 this.getpost();
             }, error => {
                 // console.log(error);
