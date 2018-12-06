@@ -1,3 +1,3 @@
-# Share your knowledge
+# SharePost
 
-this app lets you post your articles and read other peoples articles
+a simple Blogpost that lets you register, login, post your articles and read articles written by others.
