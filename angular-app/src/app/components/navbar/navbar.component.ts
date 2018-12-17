@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FeedService } from 'src/app/services/feed.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
 
 
-  constructor() { }
+  constructor(private feedService: FeedService) { }
 
   ngOnInit() {
   }
@@ -20,6 +21,12 @@ export class NavbarComponent implements OnInit {
     return false;
   }
   clearItem(){
+    let token = localStorage.getItem('userToken');
+    this.feedService.logoutToken(token).subscribe(data=>{
+    alert(data.msg);
+    },error=>{
+
+    })
     localStorage.removeItem('userToken');
   }
 

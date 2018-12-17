@@ -3,11 +3,12 @@
     <div class="col-sm-1 sidenav">
     </div>
     <div class="col-sm-9 text-left">
+        <flash-messages></flash-messages>
       <nav class="bg-light">
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <a class="nav-item nav-link" id="nav-new-tab" data-toggle="tab" href="#nav-new" role="tab" aria-controls="nav-new"
             aria-selected="false">New</a>
-          <a class="nav-item nav-link active" id="nav-article-tab" data-toggle="tab" href="#nav-articles" role="tab"
+          <a  class="nav-item nav-link active" id="nav-article-tab" data-toggle="tab" href="#nav-articles" role="tab"
             aria-controls="nav-articles" aria-selected="true">My Articles</a>
         </div>
       </nav>
@@ -34,12 +35,12 @@
               </div>
 
             </form>
-            <flash-messages></flash-messages>
           </div>
         </div>
 
         <div class="tab-pane fade show active" id="nav-articles" role="tabpanel" aria-labelledby="nav-articles-tab">
           <div *ngFor="let post of posts" class="jumbotron">
+            <p class="btn badge badge-sm badge-danger float-right" (click)="deletePost(post._id)">Delete</p>
             <p class="lead">{{post.title}}</p>
             <hr class="my-4">
             <div>
