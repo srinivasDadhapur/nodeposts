@@ -16,6 +16,11 @@ export class FeedService {
     return this.http.get<any>('http://localhost:8080/getposts',{headers:headers}).pipe(catchError(this.errorHandler));
   }
 
+  logoutToken(clienttoken){
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    return this.http.post<any>('http://localhost:8080/logout',{token:clienttoken},{headers:headers}).pipe(catchError(this.errorHandler));
+  }
+
   getUsers() {
     let headers = new HttpHeaders().set('Content-Type','application/json');
     return this.http.get<any>('http://localhost:8080/getusers',{headers:headers}).pipe(catchError(this.errorHandler));

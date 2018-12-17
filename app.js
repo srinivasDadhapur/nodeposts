@@ -109,6 +109,16 @@ app.post('/getposts',(req,res)=>{
     })
 });
 
+app.post('/deletepost',(req,res)=>{    
+    postsModel.deleteOne({_id:req.body.id},(err,data)=>{
+        if(data.n){
+            res.send({success:true,msg:"Deleted Successfully"})
+        }
+        else{
+            res.send({success:false,msg:"Cannot delete, please try again"})
+        }
+    })
+})
 
 
 app.post('/getpost',(req,res)=>{
@@ -118,6 +128,7 @@ app.post('/getpost',(req,res)=>{
          if(data){
              let sendUser = {
                  post:data.post,
+                 user:data.userId,
                  title:data.title,
                  _id:data._id,
                  comments:data.comments
@@ -140,7 +151,7 @@ app.get('/getposts',(req,res)=>{
             data.forEach(element=>{
                 sendUser.push({post:element.post.slice(0,50),title:element.title,_id:element._id});
             });
-            console.log(sendUser);
+            // console.log(sendUser);
 
            return res.send(sendUser);
          }
@@ -154,7 +165,17 @@ app.get('/getposts',(req,res)=>{
 
          if(data){
            // console.log(data);
-            return res.send(data);
+
+           let userData=[]
+           data.forEach(element=>{
+               userData.push({
+                _id:element._id,
+                name:element.name,
+                email:element.email
+               })
+           });
+
+            return res.send(userData);
          }
          res.send({error:err})
      })
@@ -168,11 +189,25 @@ app.post('/post',(req,res)=>{
             res.status(403).send({success:false,msg:'cannot post your data'});
         }
         else{
-          console.log(data);
+        //   console.log(data);
             res.status(200).send({success:true,msg:'posted your data successfully'});
         }
     });
 });
+
+app.post('/logout',(req,res)=>{
+    // console.log(req.body.token);
+    jwtModel.deleteOne({token:req.body.token},(err,data)=>{
+        if(data.n){
+            res.send({success:true,msg:'Logged out successfully'})
+        }
+        else{
+            res.send({success:false,msg:'Logged out already'})
+        }
+    });
+})
+
+
 app.put('/postcomment',(req,res)=>{
     // console.log(req.body.post);
     let comment = req.body.comment;

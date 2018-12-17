@@ -24,7 +24,7 @@
 </div>
         <ul class="nav navbar-nav navbar-right">
           <li *ngIf="checkUser()"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-            <a class="nav-link" [routerLink]="[ 'login']" (click)="clearItem()" >Signout</a>
+            <a class="nav-link" [routerLink]="[ 'login']" (click)="clearItem()" >Logout</a>
           </li>
         </ul>
 

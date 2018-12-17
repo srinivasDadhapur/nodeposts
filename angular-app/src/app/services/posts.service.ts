@@ -21,6 +21,11 @@ export class PostsService {
     return this.http.post<any>('http://localhost:8080/getpost',{id:postId},{headers:headers}).pipe(catchError(this.errorHandler));
    }
 
+   deletePost(postid){
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    return this.http.post<any>('http://localhost:8080/deletepost',{id:postid},{headers:headers}).pipe(catchError(this.errorHandler)); 
+   }
+
 
   getPosts(userId) {
     let headers = new HttpHeaders().set('Content-Type','application/json');
